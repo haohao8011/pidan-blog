@@ -4,7 +4,7 @@ WORKDIR /app
 COPY blog-web/package.json blog-web/package-lock.json ./
 RUN npm ci
 COPY blog-web/ ./
-RUN npm run build
+RUN npx vite build
 
 # Stage 2: 构建后端（前端产物复制到 static）
 FROM maven:3.9-eclipse-temurin-17-alpine AS backend-builder
