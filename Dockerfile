@@ -10,10 +10,10 @@ RUN npx vite build
 FROM maven:3.9-eclipse-temurin-17-alpine AS backend-builder
 WORKDIR /app
 COPY blog-server/pom.xml ./
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:resolve -B
 COPY blog-server/src ./src
 COPY --from=frontend-builder /app/dist/ ./src/main/resources/static/
-RUN mvn package -DskipTests -B
+RUN mvn package -DskipTests -B -e
 
 # Stage 3: 运行时
 FROM eclipse-temurin:17-jre-alpine
