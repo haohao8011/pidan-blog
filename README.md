@@ -22,26 +22,26 @@ services:
   blog-server:
     image: ghcr.io/haohao8011/pidan-blog:latest
     ports:
-      - "8080:8080"
+      - "8080:8080"                    # ← 可改：左边是宿主机端口
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/pidan_blog
-      - SPRING_DATASOURCE_USERNAME=pidan_blog
-      - SPRING_DATASOURCE_PASSWORD=blog_password
+      - SPRING_DATASOURCE_USERNAME=pidan_blog   # ← 可改：数据库用户名，需与下方保持一致
+      - SPRING_DATASOURCE_PASSWORD=blog_password # ← 可改：数据库密码，需与下方保持一致
     volumes:
-      - uploads:/app/uploads
+      - uploads:/app/uploads           # 上传文件持久化
     restart: unless-stopped
 
   postgres:
     image: postgres:15-alpine
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data # 数据库持久化
     environment:
-      - POSTGRES_DB=pidan_blog
-      - POSTGRES_USER=pidan_blog
-      - POSTGRES_PASSWORD=blog_password
+      - POSTGRES_DB=pidan_blog          # ← 可改：数据库名
+      - POSTGRES_USER=pidan_blog        # ← 可改：与上方 USERNAME 保持一致
+      - POSTGRES_PASSWORD=blog_password # ← 可改：与上方 PASSWORD 保持一致
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U pidan_blog"]
       interval: 5s
@@ -50,8 +50,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  pgdata:
-  uploads:
+  pgdata:                               # 数据库数据，勿删
+  uploads:                              # 上传文件，勿删
 EOF
 docker compose up -d
 ```
