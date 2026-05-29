@@ -14,10 +14,15 @@
 
 ### 一键部署（推荐）
 
-无需克隆源码，一条命令搞定：
+**1. 创建目录和配置文件**
 
 ```bash
-mkdir -p /opt/pidan-blog && cd /opt/pidan-blog && cat > docker-compose.yml << 'EOF'
+mkdir -p /opt/pidan-blog && cd /opt/pidan-blog
+```
+
+**2. 创建 `docker-compose.yml`（按需修改注释标记的部分）**
+
+```yaml
 services:
   blog-server:
     image: ghcr.io/haohao8011/pidan-blog:latest
@@ -52,7 +57,11 @@ services:
 volumes:
   pgdata:                               # 数据库数据，勿删
   uploads:                              # 上传文件，勿删
-EOF
+```
+
+**3. 启动**
+
+```bash
 docker compose up -d
 ```
 
