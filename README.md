@@ -36,17 +36,75 @@ pnpm dev
 ## 项目结构
 
 ```
-blog/
-├── blog-server/        # Spring Boot 后端
-│   ├── src/main/java/  # Java 源码
+pidan-blog/
+├── blog-server/                    # Spring Boot 后端
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/com/pidan/blog/
+│   │       │   ├── common/         # 通用工具（BaseEntity、ApiResponse、SlugUtils）
+│   │       │   ├── config/         # 应用配置（CORS、WebMvc）
+│   │       │   ├── controller/
+│   │       │   │   ├── admin/      # 后台接口（需认证）
+│   │       │   │   └── pub/        # 公开接口
+│   │       │   ├── dto/            # 请求/响应 DTO
+│   │       │   ├── entity/         # JPA 实体
+│   │       │   ├── exception/      # 全局异常处理
+│   │       │   ├── repository/     # JPA Repository
+│   │       │   ├── security/       # JWT 认证 + Spring Security
+│   │       │   └── service/        # 业务逻辑
+│   │       └── resources/
+│   │           ├── application.yml
+│   │           ├── db/migration/   # Flyway 迁移脚本
+│   │           └── static/         # 前端构建产物
+│   ├── src/test/
+│   ├── uploads/
 │   ├── Dockerfile
 │   └── pom.xml
-├── blog-web/           # Vue 3 前端
-│   ├── src/            # Vue 源码
-│   └── package.json
-├── docs/               # 项目文档
-├── scripts/            # 开发脚本
+├── blog-web/                       # Vue 3 前端
+│   ├── src/
+│   │   ├── api/                    # 接口请求封装
+│   │   ├── assets/                 # 静态资源
+│   │   │   ├── fonts/
+│   │   │   └── images/
+│   │   ├── components/
+│   │   │   ├── blog/               # 博客组件（Header、Footer、Layout、PostCard、Comment）
+│   │   │   ├── console/            # 后台组件（DataTable、Modal、Sidebar）
+│   │   │   └── ui/                 # 基础 UI（Button、Input、Badge、Pagination、Toast）
+│   │   ├── composables/            # Vue 组合式函数
+│   │   ├── router/                 # 路由配置
+│   │   ├── stores/                 # Pinia 状态管理
+│   │   ├── types/                  # TypeScript 类型（按模块拆分）
+│   │   ├── utils/                  # 工具函数
+│   │   └── views/
+│   │       ├── blog/               # 前台页面（首页、文章详情、分类、标签、归档、关于）
+│   │       └── console/            # 后台页面（仪表盘、文章管理、评论、分类、标签、设置）
+│   ├── public/
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   └── tailwind.config.ts
+├── docs/                           # 项目文档
+│   ├── api/                        # API 接口文档
+│   ├── database/                   # 数据库设计文档
+│   ├── deployment/                 # 部署文档
+│   ├── design/                     # 设计方案
+│   ├── AUTHORS.md
+│   └── CHANGELOG.md
+├── scripts/                        # 开发脚本
+│   ├── build-web.sh                # 前端构建脚本
+│   └── db-backup.sh                # 数据库备份脚本
+├── .github/
+│   ├── workflows/ci.yml            # GitHub Actions CI
+│   └── ISSUE_TEMPLATE/             # Issue 模板
 ├── docker-compose.yml
+├── .editorconfig
+├── .dockerignore
+├── .gitignore
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── LICENSE
 └── README.md
 ```
 
