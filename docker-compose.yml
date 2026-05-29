@@ -1,0 +1,35 @@
+services:
+  blog-server:
+    build: ./blog-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/pidan_blog
+      - SPRING_DATASOURCE_USERNAME=pidan_blog
+      - SPRING_DATASOURCE_PASSWORD=blog_password
+      - JAVA_OPTS=-Xms256m -Xmx512m
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=pidan_blog
+      - POSTGRES_USER=pidan_blog
+      - POSTGRES_PASSWORD=blog_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pidan_blog"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  uploads:

@@ -1,0 +1,29 @@
+# Docker 构建忽略
+.git
+.github
+.editorconfig
+.gitignore
+
+# 文档
+docs/
+hack/
+*.md
+LICENSE
+
+# IDE
+.idea/
+.vscode/
+
+# 前端（单独构建）
+blog-web/
+
+# 构建产物
+blog-server/target/
+
+# 上传文件
+blog-server/uploads/*
+!blog-server/uploads/.gitkeep
+
+# 日志
+*.log
+logs/
