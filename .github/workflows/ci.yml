@@ -19,8 +19,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - run: mvn clean compile -B -e
-        id: maven-compile
+      - run: mvn clean compile -B -e -Dmaven.wagon.http.retryHandler.requestSentEnabled=true
 
   frontend:
     runs-on: ubuntu-latest
