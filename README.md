@@ -14,9 +14,10 @@
 
 ### 一键部署（推荐）
 
-无需克隆源码，创建 `docker-compose.yml` 直接运行：
+无需克隆源码，一条命令搞定：
 
-```yaml
+```bash
+mkdir -p /opt/pidan-blog && cd /opt/pidan-blog && cat > docker-compose.yml << 'EOF'
 services:
   blog-server:
     image: ghcr.io/haohao8011/pidan-blog:latest
@@ -51,13 +52,11 @@ services:
 volumes:
   pgdata:
   uploads:
-```
-
-```bash
+EOF
 docker compose up -d
 ```
 
-访问 http://localhost:8080 按引导页完成初始化。
+访问 http://服务器IP:8080 按引导页完成初始化。
 
 ### 源码构建部署
 
