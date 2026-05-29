@@ -6,7 +6,7 @@
 
 # 文档
 docs/
-hack/
+scripts/
 *.md
 LICENSE
 
@@ -14,11 +14,10 @@ LICENSE
 .idea/
 .vscode/
 
-# 前端（单独构建）
-blog-web/
-
 # 构建产物
 blog-server/target/
+blog-web/node_modules/
+blog-web/dist/
 
 # 上传文件
 blog-server/uploads/*
@@ -27,3 +26,7 @@ blog-server/uploads/*
 # 日志
 *.log
 logs/
+
+# Docker
+docker-compose*.yml
+.dockerignore

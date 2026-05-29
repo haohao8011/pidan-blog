@@ -12,13 +12,60 @@
 
 ## 快速开始
 
-### Docker Compose 部署
+### 一键部署（推荐）
+
+无需克隆源码，创建 `docker-compose.yml` 直接运行：
+
+```yaml
+services:
+  blog-server:
+    image: ghcr.io/haohao8011/pidan-blog:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/pidan_blog
+      - SPRING_DATASOURCE_USERNAME=pidan_blog
+      - SPRING_DATASOURCE_PASSWORD=blog_password
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=pidan_blog
+      - POSTGRES_USER=pidan_blog
+      - POSTGRES_PASSWORD=blog_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pidan_blog"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  uploads:
+```
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 访问 http://localhost:8080 按引导页完成初始化。
+
+### 源码构建部署
+
+```bash
+git clone https://github.com/haohao8011/pidan-blog.git
+cd pidan-blog
+docker compose up -d --build
+```
 
 ### 本地开发
 
