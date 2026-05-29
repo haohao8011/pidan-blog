@@ -67,6 +67,39 @@ docker compose up -d
 
 访问 http://服务器IP:8080 按引导页完成初始化。
 
+**4. 更新版本**
+
+```bash
+cd /opt/pidan-blog
+docker compose pull        # 拉取最新镜像
+docker compose up -d       # 重启容器
+```
+
+**5. 重新构建（源码部署时使用）**
+
+```bash
+cd /opt/pidan-blog
+docker compose up -d --build
+```
+
+**6. 查看日志**
+
+```bash
+docker compose logs -f blog-server
+```
+
+**7. 停止并删除项目（数据卷保留）**
+
+```bash
+docker compose down
+```
+
+**8. 停止并删除项目（包括数据，不可恢复）**
+
+```bash
+docker compose down -v
+```
+
 ### 源码构建部署
 
 ```bash
