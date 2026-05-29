@@ -15,7 +15,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - run: cd blog-server && mvn clean test
+          cache: maven
+      - run: cd blog-server && mvn clean compile -B
 
   frontend:
     runs-on: ubuntu-latest
@@ -24,7 +25,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - run: cd blog-web && pnpm install && pnpm build
+          cache: npm
+      - run: cd blog-web && npm ci && npm run build
