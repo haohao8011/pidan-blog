@@ -19,7 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - run: mvn clean compile -B
+      - run: mvn clean compile -B -e
+        id: maven-compile
 
   frontend:
     runs-on: ubuntu-latest
